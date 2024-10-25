@@ -1,0 +1,28 @@
+{
+  "name": "wp-update-version",
+  "description": "Command to update the version number in WordPress plugin/theme files",
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx lib -p example/package.json -m example/plugin-name.php -c PLUGIN_NAME_VERSION",
+    "test": "npm run update --prefix example"
+  },
+  "bin": {
+    "wp-update-version": "bin/index.js"
+  },
+  "devDependencies": {
+    "@tsconfig/node20": "^20.1.4",
+    "@types/node": "^22.7.9",
+    "eslint": "^9.13.0",
+    "neostandard": "^0.11.7",
+    "tsx": "^4.19.1",
+    "typescript": "^5.6.3"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "commander": "^12.1.0"
+  }
+}

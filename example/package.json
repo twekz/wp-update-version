@@ -1,0 +1,11 @@
+{
+  "name": "plugin-name",
+  "private": true,
+  "version": "1.2.3",
+  "scripts": {
+    "update": "wp-update-version -m plugin-name.php -c PLUGIN_NAME_VERSION"
+  },
+  "devDependencies": {
+    "wp-update-version": "../"
+  }
+}
