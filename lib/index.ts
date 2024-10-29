@@ -2,14 +2,11 @@
 
 import { Command } from 'commander';
 import run from './main.js';
+import { buildArray } from './utils.js';
 
 const program = new Command();
 
 program.name('wp-update-version');
-
-function buildArray (value: string, acc: string[] = []): string[] {
-  return acc.concat([value]);
-}
 
 program
   .option('--file <file>', 'Specify the file to be updated. Can be repeated to update multiple files.\nDefaults to stuff', buildArray)

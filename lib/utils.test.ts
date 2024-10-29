@@ -4,7 +4,8 @@ import {
   getFileContent,
   validateFileType,
   getVersion,
-  getPackageVersion
+  getPackageVersion,
+  buildArray,
 } from './utils.ts';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -157,6 +158,19 @@ describe('Utility Functions', () => {
 
       expect(() => validateFileType('test.js'))
         .toThrow('File test.js has an unsupported type');
+    });
+  });
+
+  describe('buildArray', () => {
+    it('should create new array with single value', () => {
+      const result = buildArray('test.php');
+      expect(result).toEqual(['test.php']);
+    });
+
+    it('should append to existing array', () => {
+      const existing = ['test.php'];
+      const result = buildArray('style.css', existing);
+      expect(result).toEqual(['test.php', 'style.css']);
     });
   });
 });

@@ -48,3 +48,7 @@ export function validateFileType (filePath: string): string {
       throw new Error(`File ${path.basename(filePath)} has an unsupported type`);
   }
 }
+
+export function buildArray (value: string, acc: string[] = []): string[] {
+  return acc.concat([value]);
+}
