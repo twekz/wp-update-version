@@ -6,7 +6,8 @@
   "scripts": {
     "build": "tsc --project tsconfig.build.json",
     "dev": "tsx lib --package-json example/package.json --file example/plugin-name.php --file example/style.css --file example/theme-style.scss --file example/theme-style.sass --constant PLUGIN_NAME_VERSION",
-    "test": "vitest"
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "bin": {
     "wp-update-version": "bin/index.js"
