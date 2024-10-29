@@ -1,18 +1,33 @@
-import fs from 'node:fs';
-import { getFileAbsolutePath, getFileContent, getPackageVersion } from './utils.js';
-
 /**
  * Very simple regex for version number
  */
 const VERSION_REGEX = '[.\\S]+';
 
 /**
- * Replace version number in a comment block
+ * Replace version number in a PHP comment block
  * @param fileContent
  * @param version
  */
-function updateHeaderVersion (fileContent: string, version: string) {
+export function updatePHPHeaderVersion (fileContent: string, version: string) {
   const commentRegex = new RegExp(`\\s*\\*\\s*(Version):\\s*(${VERSION_REGEX})\\n`);
+  const commentMatch: RegExpExecArray | null = commentRegex.exec(fileContent);
+
+  if (commentMatch != null) {
+    const oldComment = commentMatch[0];
+    const newComment = oldComment.slice(0).replace(commentMatch[2], version);
+    fileContent = fileContent.replace(oldComment, newComment);
+  }
+
+  return fileContent;
+}
+
+/**
+ * Replace version number in a CSS comment block
+ * @param fileContent
+ * @param version
+ */
+export function updateCSSHeaderVersion (fileContent: string, version: string) {
+  const commentRegex = new RegExp(`\\s*\\**\\s*(Version):\\s*(${VERSION_REGEX})\\n`);
   const commentMatch: RegExpExecArray | null = commentRegex.exec(fileContent);
 
   if (commentMatch != null) {
@@ -28,45 +43,24 @@ function updateHeaderVersion (fileContent: string, version: string) {
  * Replace version number in a PHP constant definition
  * @param fileContent
  * @param version
- * @param constant - name of the constant
+ * @param constantName - name of the constant
  */
-function updateConstantVersion (fileContent: string, version: string, constant: string) {
-  const constantRegex = new RegExp(`define\\(\\s*(['"])${constant}\\1\\s*,\\s*(['"])(${VERSION_REGEX})\\2\\s*\\);`);
-  const constantMatch: RegExpExecArray | null = constantRegex.exec(fileContent);
+export function updatePHPConstantVersion (fileContent: string, version: string, constantName: string) {
+  const syntaxes = [
+    `define\\(\\s*(['"])${constantName}\\2\\s*,\\s*(['"])(?<v1>${VERSION_REGEX})\\3\\s*\\)`,
+    `const\\s*${constantName}\\s*=\\s*(['"])(?<v2>${VERSION_REGEX})\\5`
+  ];
+  const constantRegex = new RegExp(`(${syntaxes.join('|')})`, 'g');
 
-  if (constantMatch != null) {
-    const oldConstant = constantMatch[0];
-    const newConstant = oldConstant.slice(0).replace(constantMatch[3], version);
-    fileContent = fileContent.replace(oldConstant, newConstant);
+  let match;
+  while ((match = constantRegex.exec(fileContent)) !== null) {
+    const oldConstant = match[0];
+    const oldVersion = match.groups?.v1 ?? match.groups?.v2;
+    if (oldVersion != null) {
+      const newConstant = oldConstant.slice(0).replace(oldVersion, version);
+      fileContent = fileContent.replace(oldConstant, newConstant);
+    }
   }
 
   return fileContent;
-}
-
-/**
- * Get a file's content and update it
- * @param file
- * @param constant
- * @param packageFile
- */
-export function updateVersionInFile (file: string, constant?: string, packageFile?: string): void {
-  const version = getPackageVersion(packageFile);
-
-  const filePath = getFileAbsolutePath(file);
-  let fileContent = getFileContent(filePath);
-
-  if (fileContent == null || fileContent === '') {
-    throw new Error(`File ${file} seems to be empty`);
-  }
-
-  // Update file header version
-  fileContent = updateHeaderVersion(fileContent, version);
-
-  // Update constant definition
-  if (constant != null && constant !== '') {
-    fileContent = updateConstantVersion(fileContent, version, constant);
-  }
-
-  // Save file containing new values
-  fs.writeFileSync(filePath, fileContent);
 }
