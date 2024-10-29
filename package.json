@@ -1,6 +1,6 @@
 {
   "name": "wp-update-version",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Command-line tool that updates the version number in various files within a WordPress project (plugin or theme).",
   "keywords": [
     "wordpress",
@@ -26,7 +26,9 @@
   },
   "main": "bin/index.js",
   "bin": "bin/index.js",
-  "files": ["bin/*"],
+  "files": [
+    "bin/*"
+  ],
   "devDependencies": {
     "@tsconfig/node20": "^20.1.4",
     "@types/node": "^22.7.9",
