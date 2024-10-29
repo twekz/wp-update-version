@@ -3,5 +3,6 @@
   "compilerOptions": {
     "allowImportingTsExtensions": false
   },
+  "include": ["lib/**/*.ts"],
   "exclude": ["**/*.test.ts"]
 }
