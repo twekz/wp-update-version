@@ -1,7 +1,15 @@
 {
   "name": "wp-update-version",
-  "description": "Command to update the version number in WordPress plugin/theme files",
   "version": "0.1.0",
+  "description": "Command-line tool that updates the version number in various files within a WordPress project (plugin or theme).",
+  "keywords": ["wordpress", "wp", "theme", "plugin", "package.json", "version"],
+  "author": "Sam Lemaresquier <contact@samlem.com> (samlem.com)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/twekz/wp-update-version.git"
+  },
+  "bugs": "https://github.com/twekz/wp-update-version/issues",
   "type": "module",
   "scripts": {
     "build": "tsc --project tsconfig.build.json",
@@ -9,9 +17,8 @@
     "test": "vitest run",
     "test:watch": "vitest"
   },
-  "bin": {
-    "wp-update-version": "bin/index.js"
-  },
+  "main": "bin/index.js",
+  "bin": "bin/index.js",
   "devDependencies": {
     "@tsconfig/node20": "^20.1.4",
     "@types/node": "^22.7.9",
