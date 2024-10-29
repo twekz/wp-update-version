@@ -4,9 +4,9 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc --project tsconfig.build.json",
     "dev": "tsx lib --package-json example/package.json --file example/plugin-name.php --file example/style.css --file example/theme-style.scss --file example/theme-style.sass --constant PLUGIN_NAME_VERSION",
-    "test": "npm run update --prefix example"
+    "test": "vitest"
   },
   "bin": {
     "wp-update-version": "bin/index.js"
@@ -14,10 +14,12 @@
   "devDependencies": {
     "@tsconfig/node20": "^20.1.4",
     "@types/node": "^22.7.9",
+    "@vitest/coverage-v8": "^2.1.4",
     "eslint": "^9.13.0",
     "neostandard": "^0.11.7",
     "tsx": "^4.19.1",
-    "typescript": "^5.6.3"
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.4"
   },
   "engines": {
     "node": ">=18"

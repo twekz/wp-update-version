@@ -12,26 +12,26 @@ export function getFileContent (filePath: string): string | undefined {
     if (file && file.toString().length > 0) {
       return file.toString();
     }
-    console.log(`File ${file} seems to be empty`);
-    return;
   }
-  console.log(`File ${filePath} does not exist`);
 }
 
 export function getPackageVersion (filePath: string): string | undefined {
-  const packageJsonStr = getFileContent(filePath);
-  if (packageJsonStr != null) {
-    const { version } = JSON.parse(packageJsonStr);
-    return version;
+  const packageJsonStr = getFileContent(getFileAbsolutePath(filePath));
+  try {
+    if (packageJsonStr != null) {
+      const { version } = JSON.parse(packageJsonStr);
+      return version;
+    }
+  } catch {
+    return undefined;
   }
 }
 
-export function getVersion (packageJsonFile: string, projectVersion: string | undefined) {
-  const version = projectVersion || getPackageVersion(getFileAbsolutePath(packageJsonFile));
+export function getVersion (packageJsonFilePath: string, projectVersion: string | undefined) {
+  const version = projectVersion || getPackageVersion(packageJsonFilePath);
   if (version == null) {
-    throw new Error('[WPUV] No version number or valid package.json file was provided');
+    throw new Error('No version number or valid package.json file was provided');
   }
-  console.log('[WPUV] New version number to apply:', version);
   return version;
 }
 

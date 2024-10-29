@@ -1,0 +1,7 @@
+{
+  "extends": "./tsconfig",
+  "compilerOptions": {
+    "allowImportingTsExtensions": false
+  },
+  "exclude": ["**/*.test.ts"]
+}
