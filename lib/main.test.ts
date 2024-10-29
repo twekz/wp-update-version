@@ -12,6 +12,7 @@ import {
 } from './utils.ts';
 import main from './main.ts';
 import fs from 'node:fs';
+import log from './logger.ts';
 
 // Mock the filesystem modules
 vi.mock('node:fs');
@@ -24,7 +25,7 @@ describe('Main Program Flow', () => {
   beforeEach(() => {
     vi.spyOn(process, 'cwd').mockReturnValue(mockCwd);
     vi.spyOn(console, 'log').mockImplementation(() => {});
-    vi.spyOn(console, 'error').mockImplementation(() => {});
+    vi.mock('./logger.ts');
   });
 
   afterEach(() => {
@@ -115,14 +116,14 @@ describe('Main Program Flow', () => {
         projectVersion: '2.0.0'
       });
 
-      expect(console.error).toHaveBeenCalled();
+      expect(log).toHaveBeenCalledWith('Could not update', 'invalid.php');
       // Ensure the program continues even after error
       expect(process.exitCode).toBeUndefined();
     });
 
     it('should throw error when no version is available', () => {
       vi.mocked(getVersion).mockImplementation(() => {
-        throw new Error('[WPUV] No version number or valid package.json file was provided');
+        throw new Error('No version number or valid package.json file was provided');
       });
 
       expect(() =>

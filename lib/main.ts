@@ -6,6 +6,7 @@ import {
 } from './updateVersion.js';
 import { ProgramOptions } from './index.js';
 import fs from 'node:fs';
+import log from './logger.js';
 
 /**
  * Get a file's content and update it
@@ -38,10 +39,10 @@ function handleFile (filename: string, version: string, constantName?: string): 
       // Save file containing new values
       fs.writeFileSync(filePath, fileContent);
 
-      console.log('[WPUV] Successfully updated file:', filename);
+      log('Successfully updated', filename);
     }
   } catch (err) {
-    console.error(err);
+    log('Could not update', filename);
   }
 }
 
@@ -62,9 +63,11 @@ function main (params: ProgramOptions) {
   if (_files != null && _files.length > 0) {
     files = _files;
   }
+  log(`File${files.length > 1 ? 's' : ''} to be updated:`, files.join(', '));
 
   // Get new version number
   const version = getVersion(packageJson, projectVersion);
+  log('New version to apply:', version);
 
   // Handle files
   files.forEach((filename) => {
