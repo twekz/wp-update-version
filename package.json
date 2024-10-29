@@ -1,8 +1,15 @@
 {
   "name": "wp-update-version",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Command-line tool that updates the version number in various files within a WordPress project (plugin or theme).",
-  "keywords": ["wordpress", "wp", "theme", "plugin", "package.json", "version"],
+  "keywords": [
+    "wordpress",
+    "wp",
+    "theme",
+    "plugin",
+    "package.json",
+    "version"
+  ],
   "author": "Sam Lemaresquier <contact@samlem.com> (samlem.com)",
   "license": "MIT",
   "repository": {
