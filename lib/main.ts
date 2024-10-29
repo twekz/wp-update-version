@@ -54,7 +54,7 @@ function main (params: ProgramOptions) {
   const {
     file: _files,
     constant: constantName,
-    packageJson,
+    packageJson = './package.json',
     projectVersion,
   } = params;
 
