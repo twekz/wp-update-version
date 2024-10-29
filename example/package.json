@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.2.3",
   "scripts": {
-    "update": "wp-update-version -m plugin-name.php -c PLUGIN_NAME_VERSION"
+    "update": "wp-update-version --file plugin-name.php --file style.css --file theme-style.scss --file theme-style.sass --constant PLUGIN_NAME_VERSION"
   },
   "devDependencies": {
     "wp-update-version": "../"

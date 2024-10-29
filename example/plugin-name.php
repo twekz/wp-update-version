@@ -11,7 +11,7 @@
  * Plugin Name:       Plugin Name
  * Plugin URI:        https://example.com/plugin-name
  * Description:       Description of the plugin.
- * Version:           1.0.0
+ * Version:           0.1.0
  * Requires at least: 5.2
  * Requires PHP:      7.2
  * Author:            Your Name
@@ -27,5 +27,6 @@ if ( ! defined( 'ABSPATH' ) ) {
   exit; // Exit if accessed directly
 }
 
-define(     'PLUGIN_NAME_VERSION'   , "1.0.0"  );
+define(     'PLUGIN_NAME_VERSION'   , "0.1.0"  );
 
+const   PLUGIN_NAME_VERSION    =    "0.1.0" ;

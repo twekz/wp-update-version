@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "tsc",
-    "dev": "tsx lib -p example/package.json -m example/plugin-name.php -c PLUGIN_NAME_VERSION",
+    "dev": "tsx lib --package-json example/package.json --file example/plugin-name.php --file example/style.css --file example/theme-style.scss --file example/theme-style.sass --constant PLUGIN_NAME_VERSION",
     "test": "npm run update --prefix example"
   },
   "bin": {
